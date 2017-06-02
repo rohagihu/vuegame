@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # game
 
 > A Vue.js project
@@ -19,3 +20,6 @@ npm run build --report
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+=======
+# vuegame
+>>>>>>> 810cec0b086dd53569cd290a353844c85c39e44a
