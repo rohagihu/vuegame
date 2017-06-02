@@ -1,0 +1,52 @@
+$playerIconPurple: purple;
+$playerIconYellow: #e0b311;
+$playerIconGreen: green;
+$playerIconWhite: blue;
+
+.playerHalo--purple {
+    text-shadow: 
+        5px 5px 5px $playerIconPurple,
+        -5px -5px 5px $playerIconPurple,
+        5px -5px 5px $playerIconPurple,
+        -5px 5px 5px $playerIconPurple;
+    svg path,
+    svg polygon {
+        fill: $playerIconPurple;
+    }
+}
+
+.playerHalo--yellow {
+    text-shadow: 
+        5px 5px 10px $playerIconYellow,
+        -5px -5px 10px $playerIconYellow,
+        5px -5px 10px $playerIconYellow,
+        -5px 5px 10px $playerIconYellow;
+    svg path,
+    svg polygon {
+        fill: $playerIconYellow;
+    }
+}
+
+.playerHalo--green {
+    text-shadow: 
+        5px 5px 10px $playerIconGreen,
+        -5px -5px 10px $playerIconGreen,
+        5px -5px 10px $playerIconGreen,
+        -5px 5px 10px $playerIconGreen;
+    svg path,
+    svg polygon {
+        fill: $playerIconGreen;
+    }
+}
+
+.playerHalo--white {
+    text-shadow: 
+        5px 5px 10px $playerIconWhite,
+        -5px -5px 10px $playerIconWhite,
+        5px -5px 10px $playerIconWhite,
+        -5px 5px 10px $playerIconWhite;
+    svg path,
+    svg polygon {
+        fill: $playerIconWhite;
+    }
+}

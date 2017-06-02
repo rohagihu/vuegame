@@ -1,0 +1,25 @@
+@import './static/scss/ui';
+@import './static/scss/initialize';
+@import './static/scss/world';
+@import './static/scss/player';
+@import './static/scss/settings';
+
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+svg {
+    width: 50px;
+    height: 50px;
+}
+
+.center {
+    text-align: center;
+}
+
+.fadeOut {
+    opacity: 0;
+    transition: opacity 1s;
+}

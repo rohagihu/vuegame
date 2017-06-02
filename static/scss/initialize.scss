@@ -1,0 +1,51 @@
+.initialize {
+    text-align: center;
+    margin-top: 20px;
+    list-style-type: none;
+
+    input {
+        width: 30px;
+        padding: 5px;
+        text-align: center;
+    }
+
+    li {
+        margin: 20px 0px;
+    }
+
+    .choosePlayerHalo {
+        margin: 0px 30px;
+        display: inline-block
+    }
+
+    .playerIconChoose {
+        span {
+            margin-left: 20px;
+            font-weight: bold;
+        }
+        input {
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+        }
+    }
+
+    .fieldElementInitialize {
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        margin: 0px 20px;
+        position: relative;
+        cursor: pointer;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+
+        input {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: auto;
+        }
+    }
+}

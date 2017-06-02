@@ -1,0 +1,60 @@
+$fieldelement-size: 50px;
+$fieldelement-color: #ff6a00;
+
+$enemySelectorSelectedColor: blue;
+
+$skewPlayerEnemy: skewX(46deg) translate(-8%, -81%);
+
+.world {
+    .world__field {
+        margin-top: 20px;
+    }
+}
+
+.field {
+    text-align: center;
+    // margin-top: 200px;
+    // margin-left: 550px;
+    // display: grid;
+    // grid-template-columns: 2fr;
+    // grid-template-rows: 1fr;
+    // grid-auto-columns:
+}
+
+.fieldelement {
+    // width: $fieldelement-size;
+    // height: $fieldelement-size/2;
+    background-color: $fieldelement-color;
+    box-shadow: 9px 5px 3px #000;
+    transform: skewX(135deg);
+    display: inline-block;
+    position: relative;
+    z-index: 5;
+    // margin: 10px 25px;
+    margin: 5px 10px;
+    // margin: 1px 5px;
+    // overflow: hidden;
+    text-align: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    .player,
+    .enemy {
+        display: inline-block;
+        position: absolute;
+        z-index: 10;
+        left: 50%;
+        top: 50%;
+        transform: $skewPlayerEnemy;
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .enemy.marked {
+        transform: $skewPlayerEnemy + scale(2);
+        transition: transform .5s;
+    }
+}

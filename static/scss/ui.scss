@@ -1,0 +1,58 @@
+$enemySelectorWidth: 50px;
+$enemySelectorHeight: 55px;
+$enemySelectorSelectedColor: #6FBBFE;
+
+
+.ui {
+    .world-debugger {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+    }
+
+    .panel {
+        // position: absolute;
+        // bottom: 0;
+        margin-top: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-end;
+        width: 100%;
+
+        button.active {
+            padding: 20px;
+            background-color: red;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 25px;
+        }
+
+        .selectorBoxEnemies {
+            display: flex;
+            flex-direction: row;
+            .selectorBoxEnemies__enemy {
+                border: solid 1px #666;
+                margin: 0 5px;
+                cursor: pointer;
+                .enemy {
+                    width: $enemySelectorWidth;
+                    height: $enemySelectorHeight;
+                    padding: 5px;
+                }
+    // 5px 5px 5px blue, -5px 5px 5px blue, 5px -5px 5px blue, -5px -5px 5px blue;
+                .life {
+                    height: 5px;
+                    background-color: red;
+                }
+                &.marked {
+                    // box-shadow: $enemySelectorSelectedSize $enemySelectorSelectedSize $enemySelectorSelectedFlow $enemySelectorSelectedColor,
+                    //             $enemySelectorSelectedSizeNeg $enemySelectorSelectedSize $enemySelectorSelectedFlow $enemySelectorSelectedColor,
+                    //             $enemySelectorSelectedSize $enemySelectorSelectedSizeNeg $enemySelectorSelectedFlow $enemySelectorSelectedColor,
+                    //             $enemySelectorSelectedSizeNeg $enemySelectorSelectedSizeNeg $enemySelectorSelectedFlow $enemySelectorSelectedColor;
+                    background-color: $enemySelectorSelectedColor;
+                }
+            }
+        }
+    }
+}
