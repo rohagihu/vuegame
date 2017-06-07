@@ -10,8 +10,8 @@
       <div>Fieldsize: {{fieldsize}} ({{fieldsizeComplete}})</div>
       <div>
         Field: 
-        <div :style="{backgroundColor: generated[getIndex(playerY,playerX)].color, backgroundImage: 'url(' + generated[getIndex(playerY, playerX)].img + ')', width: '10px', height: '10px', display: 'inline-block'}"></div>
-        <span style="margin-left: 3px;">({{generated[getIndex(playerY,playerX)].color}})</span>
+        <div :style="{backgroundColor: generated[getIndex(playerX,playerY)].color, backgroundImage: 'url(' + generated[getIndex(playerX, playerY)].img + ')', width: '10px', height: '10px', display: 'inline-block'}"></div>
+        <span style="margin-left: 3px;">({{generated[getIndex(playerX,playerY)].color}})</span>
       </div>
       <div>Debug: {{debug}}</div>
     </div>
@@ -19,6 +19,11 @@
     <div class="panel">
       <div>
         <button :disabled="!enableShooting" :class="{'active': enableShooting}" @click="shoot">Schießen</button>
+        <button @click="triggerSpawnEnemy">Spawn Enemy</button>
+      </div>
+
+      <div>
+        <!-- {{getEvents()}} -->
       </div>
 
       <div>
@@ -37,6 +42,7 @@
 <script>
 // import componentName from '@/components/--Path'
 import store from './../../store'
+import spawnEnemy from './../../../static/js/spawnEnemy'
 import { mapGetters } from 'vuex'
 import movejs from 'movejs'
 export default {
@@ -56,6 +62,9 @@ export default {
     ])
   },
   methods: {
+    // getEvents () {
+    //   return this.getIndex((this.playerX + 4), (this.playerY + 1))
+    // },
     returnLifeBar (life) {
       return 'width: ' + life + '%;'
     },
@@ -177,7 +186,11 @@ export default {
       })
     },
 
-    getIndex (Y, X) {
+    triggerSpawnEnemy () {
+      spawnEnemy(1, true)
+    },
+
+    getIndex (X, Y) {
       return (this.fieldsize) * (Y - 1) + (X - 1)
     }
   }

@@ -53,6 +53,7 @@
 
 <script>
 import store from './../store'
+import spawnEnemy from './../../static/js/spawnEnemy'
 import loaderSavegame from '@/components/build/loaderSavegame'
 import { mapGetters } from 'vuex'
 var Chance = require('chance') // eslint-disable-line
@@ -116,51 +117,9 @@ export default {
         }
       }
       // ENEMIES
-      const anzEnemy = 4
-      const arrayOfEnemies = []
-      let x
-      let y
-      let enemyIndex
-      let enemy
-      let obj
-      for (let c = 1; c <= anzEnemy; c++) {
-        let goAhead = false
-        do {
-          x = chance.integer({min: 1, max: this.fieldsize})
-          y = chance.integer({min: 1, max: this.fieldsize})
-          enemyIndex = chance.integer({min: 0, max: this.enemiesPool.length - 1})
-          enemy = this.enemiesPool[enemyIndex]
-          obj = {
-            'x': x,
-            'y': y,
-            'icon': enemy.icon,
-            'life': enemy.life
-          }
-          let enemyObj = arrayOfEnemies.find(function (enemy) {
-            return enemy.x === x && enemy.y === y
-          })
-          console.log(enemyObj)
-          // if (!enemyObj || x !== 0 || y !== 0) goAhead = true
-          if (!enemyObj && ((x >= 1 && y !== 1) || (x !== 1 && y >= 1))) goAhead = true
-          // if (!enemyObj) goAhead = true
-        }
-        while (!goAhead)
-        arrayOfEnemies.push(obj)
-
-        // block the enemy field
-        let fieldObj = this.generated.find(function (field) {
-          return field.x === x && field.y === y
-        })
-        fieldObj.blocked = true
-      }
-      // console.log('arrayOfEnemies')
-      // console.log(arrayOfEnemies)
-      store.commit('setEnemyArray', arrayOfEnemies)
+      spawnEnemy(4, false)
+      // redirect to the world
       this.$router.push('/world')
-      // console.log(this.generated)
-
-      // console.log(' ')
-      // console.log(chance.d20())
     },
     toggleFieldElementEnabled (fieldElement) {
       store.commit('toggleFieldElementEnabled', fieldElement)
