@@ -23,7 +23,7 @@
       </div>
 
       <div>
-        <!-- {{getEvents()}} -->
+        {{getEvents()}}
       </div>
 
       <div>
@@ -62,9 +62,9 @@ export default {
     ])
   },
   methods: {
-    // getEvents () {
-    //   return this.getIndex((this.playerX + 4), (this.playerY + 1))
-    // },
+    getEvents () {
+      return this.getIndex((this.playerX + 1), (this.playerY + 0))
+    },
     returnLifeBar (life) {
       return 'width: ' + life + '%;'
     },
