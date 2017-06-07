@@ -131,8 +131,11 @@ export default new Vuex.Store({
     setElementSize (state, val) {
       state.field.elementSize = val
     },
+    // setEnemyArray (state, val) {
+    //   state.enemies = val
+    // },
     setEnemyArray (state, val) {
-      state.enemies = val
+      state.enemies.push(val)
     },
     setElementsSiblingsOffsets (state) {
       let a11 = document.querySelectorAll('.fieldelement')[0]

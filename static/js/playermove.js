@@ -26,7 +26,7 @@ export default function playerMove (x, y, direction) {
       return element.x === store.state.playerX + x && element.y === store.state.playerY + y && element.blocked === true
     }) // check if the next fieldelement is blocked
 
-    if (p > store.state.field.fieldsize) { // new fielelement is larger than the field, set to limit
+    if (p > store.state.field.fieldsize) { // new fielelement is larger than the max fieldsize, set to limit
         switch (direction) {
         case 'x':
             store.state.playerX = store.state.field.fieldsize
@@ -36,7 +36,7 @@ export default function playerMove (x, y, direction) {
             break
         }
         window.addEventListener('keyup', store.getters.handlerPlayerMovement)
-    } else if (p < 1) { // new fielelement is lower than the field, set to 1
+    } else if (p < 1) { // new fielelement is lower than 1, set to 1
         switch (direction) {
         case 'x':
             store.state.playerX = 1

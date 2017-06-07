@@ -4,13 +4,6 @@
       <field></field>
       <ui></ui>
     </div>
-
-<!--     <div>
-      <h3>DEBUGGER</h3>
-      <div>Player: {{playerIcon}}</div>
-      <div>Fieldsize: {{fieldsize}}</div>
-      <div>fieldsizeComplete: {{fieldsizeComplete}}</div>
-    </div> -->
   </div>
 </template>
 
@@ -18,8 +11,7 @@
 // import componentName from '@/components/--Path'
 import field from '@/components/build/field'
 import store from './../store'
-// import playerMove from '@/../static/js/playermove'
-// import listenToMoveEvent from '@/../static/js/listenToMoveEvent'
+import paint from './../../static/js/paint'
 import ui from '@/components/build/ui'
 import { mapGetters } from 'vuex'
 export default {
@@ -54,8 +46,9 @@ export default {
     select.innerHTML = '<span class="player ' + this.playerHalo + '">' + this.playerIcon + '</span>'
     // enemies init
     for (let enemy of this.enemies) {
-      select = document.querySelector('[data-fieldx="' + enemy.x + '"][data-fieldy="' + enemy.y + '"]')
-      select.innerHTML = '<span title="' + this.enemies.indexOf(enemy) + '" class="enemy">' + enemy.icon + '</span>'
+      // select = document.querySelector('[data-fieldx="' + enemy.x + '"][data-fieldy="' + enemy.y + '"]')
+      // select.innerHTML = '<span title="' + this.enemies.indexOf(enemy) + '" class="enemy">' + enemy.icon + '</span>'
+      paint(enemy, 'enemy')
     }
     // set siblings offsets
     store.commit('setElementsSiblingsOffsets')
