@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import players from '../components/players/players'
 import enemies from '../components/players/enemies'
+import objects from '../components/players/objects'
 import listenToMoveEvent from '@/../static/js/listenToMoveEvent'
 var Chance = require('chance') // eslint-disable-line
 var chance = new Chance()
@@ -100,7 +101,8 @@ export default new Vuex.Store({
       }],
       elementSize: 0,
       siblingXOffset: 0,
-      siblingYOffset: 0
+      siblingYOffset: 0,
+      events: []
     },
     playerXY: [1, 1],
     playerX: 1,
@@ -109,8 +111,9 @@ export default new Vuex.Store({
     //   'enableShooting': false
     // },
     playerIcons: [players.sheep, players.tank],
-    enemiesPool: [enemies.doener, enemies.bug],
+    enemiesPool: [enemies.doener, enemies.bug, enemies.oneEyedMonster],
     enemies: [],
+    objects: [objects.treasure],
     playerHalos: ['playerHalo--purple', 'playerHalo--yellow', 'playerHalo--green', 'playerHalo--white'],
     playerIcon: '',
     playerHalo: ''
@@ -131,11 +134,11 @@ export default new Vuex.Store({
     setElementSize (state, val) {
       state.field.elementSize = val
     },
-    // setEnemyArray (state, val) {
-    //   state.enemies = val
-    // },
     setEnemyArray (state, val) {
       state.enemies.push(val)
+    },
+    setEvent (state, val) {
+      state.field.events.push(val)
     },
     setElementsSiblingsOffsets (state) {
       let a11 = document.querySelectorAll('.fieldelement')[0]
@@ -214,6 +217,8 @@ export default new Vuex.Store({
     enemies: (state) => state.enemies,
     enemiesPool: (state) => state.enemiesPool,
     generated: (state) => state.field.generated,
+    events: (state) => state.field.events,
+    objects: (state) => state.objects,
     playerX: (state) => state.playerX,
     playerY: (state) => state.playerY,
     getTheIndex: (state) => {

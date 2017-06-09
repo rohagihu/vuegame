@@ -17,16 +17,16 @@
     </div>
 
     <div class="panel">
-      <div>
+      <div class="panel__buttons">
         <button :disabled="!enableShooting" :class="{'active': enableShooting}" @click="shoot">Schießen</button>
         <button @click="triggerSpawnEnemy">Spawn Enemy</button>
+        <button @click="triggerSpawnTreasure">Spawn Treasure</button>
       </div>
 
-      <div>
-        {{getEvents()}}
+      <div class="panel__buttons" v-html="getEvents()">
       </div>
 
-      <div>
+      <div class="panel__enemySelector">
         <h4 class="center">Select Enemy:</h4>
           <div class="selectorBoxEnemies">
             <div class="selectorBoxEnemies__enemy" :title="key" v-for="(enemy, key) in enemies" @click="selectEnemy(enemy, key)">
@@ -43,8 +43,10 @@
 // import componentName from '@/components/--Path'
 import store from './../../store'
 import spawnEnemy from './../../../static/js/spawnEnemy'
+import checkForEvents from './../../../static/js/checkForEvents'
 import { mapGetters } from 'vuex'
 import movejs from 'movejs'
+import paint from './../../../static/js/paint'
 export default {
 
   name: 'ui',
@@ -58,12 +60,53 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'fieldsize', 'fieldsizeComplete', 'playerX', 'playerY', 'playerHalo', 'playerIcon', 'generated', 'elementSize', 'getTheIndex', 'debug', 'enemies'
+      'fieldsize', 'fieldsizeComplete', 'playerX', 'playerY', 'playerHalo', 'playerIcon', 'generated', 'elementSize', 'getTheIndex', 'debug', 'enemies', 'objects',
+      'events'
     ])
   },
   methods: {
+    triggerSpawnTreasure () {
+      let x = 2
+      let y = 2
+      let obj = {
+        'x': x,
+        'y': y,
+        'icon': this.objects[0].icon
+      }
+      let event = {
+        'label': 'Open Chest',
+        'trigger': 'openChest',
+        'x': x,
+        'y': y,
+        'fieldID': this.getIndex(x, y)
+      }
+      store.commit('setEvent', event)
+      this.events.push(event)
+      this.generated[this.getIndex(x, y)].blocked = true
+      paint(obj, 'object')
+    },
     getEvents () {
-      return this.getIndex((this.playerX + 1), (this.playerY + 0))
+      let genHTML
+      let pos00 = (this.playerX - 1 > 0 && this.playerY - 1 > 0) ? checkForEvents(this.getIndex((this.playerX - 1), (this.playerY - 1))) : 'n/a'
+      let pos10 = (this.playerY - 1 > 0) ? checkForEvents(this.getIndex((this.playerX), (this.playerY - 1))) : 'n/a'
+      let pos20 = (this.playerX + 1 <= this.fieldsize && this.playerY - 1 > 0) ? checkForEvents(this.getIndex((this.playerX + 1), (this.playerY - 1))) : 'n/a'
+      let pos01 = (this.playerX - 1 > 0) ? checkForEvents(this.getIndex((this.playerX - 1), (this.playerY))) : 'n/a'
+      let pos21 = (this.playerX + 1 <= this.fieldsize) ? checkForEvents(this.getIndex((this.playerX + 1), (this.playerY))) : 'n/a'
+      let pos02 = (this.playerX - 1 > 0 && this.playerY + 1 <= this.fieldsize) ? checkForEvents(this.getIndex((this.playerX - 1), (this.playerY + 1))) : 'n/a'
+      let pos12 = (this.playerY + 1 <= this.fieldsize) ? checkForEvents(this.getIndex((this.playerX), (this.playerY + 1))) : 'n/a'
+      let pos22 = (this.playerX + 1 <= this.fieldsize && this.playerY + 1 <= this.fieldsize) ? checkForEvents(this.getIndex((this.playerX + 1), (this.playerY + 1))) : 'n/a'
+      genHTML = '<div><span>' + pos00 + ' | </span>'
+      genHTML += '<span>' + pos10 + ' | </span>'
+      genHTML += '<span>' + pos20 + '</span></div>'
+
+      genHTML += '<div><span>' + pos01 + ' | </span>'
+      genHTML += '<span>X | </span>'
+      genHTML += '<span>' + pos21 + '</span></div>'
+
+      genHTML += '<div><span>' + pos02 + ' | </span>'
+      genHTML += '<span>' + pos12 + ' | </span>'
+      genHTML += '<span>' + pos22 + '</span></div>'
+      return genHTML
     },
     returnLifeBar (life) {
       return 'width: ' + life + '%;'
@@ -134,18 +177,11 @@ export default {
 
       // enemy x y
       let enemy = document.querySelector('[data-fieldx="' + xEnemyField + '"][data-fieldy="' + yEnemyField + '"] .enemy')
-      console.log(enemy)
       let enemyRect = enemy.getBoundingClientRect()
       let xE = enemyRect.left
       let yE = enemyRect.top
       xE = xE + (parseInt(enemy.offsetWidth) / 2)
       yE = yE + (parseInt(enemy.offsetHeight) / 2)
-      // show target dot
-      // let shootLineE = document.createElement('div')
-      // shootLineE.className = 'shootingLineE'
-      // shootLineE.style.cssText = 'position:absolute;left:' + xE + 'px;top:' + yE + 'px;width:5px;height:5px;z-index:100;background:#000;'
-      // document.body.appendChild(shootLineE)
-      // END show target dot
       let highestX = Math.max(x, xE)
       let lowestX = Math.min(x, xE)
       let xDirection = xE >= x ? 1 : -1
@@ -168,7 +204,6 @@ export default {
           return enemy.x === xEnemyField && enemy.y === yEnemyField
         })
         enemyObj.life -= 10
-        console.log(enemyObj.life)
         if (enemyObj.life <= 0) {
           store.commit('deleteEnemy', enemyObj)
           let selectEnemyOnField = document.querySelector('[data-fieldx="' + xEnemyField + '"][data-fieldy="' + yEnemyField + '"] .enemy')

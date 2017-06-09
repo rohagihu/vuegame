@@ -1,5 +1,3 @@
-$fieldelement-size: 50px;
-$fieldelement-color: #ff6a00;
 
 $enemySelectorSelectedColor: blue;
 
@@ -13,18 +11,11 @@ $skewPlayerEnemy: skewX(46deg) translate(-8%, -81%);
 
 .field {
     text-align: center;
-    // margin-top: 200px;
-    // margin-left: 550px;
-    // display: grid;
-    // grid-template-columns: 2fr;
-    // grid-template-rows: 1fr;
-    // grid-auto-columns:
 }
 
 .fieldelement {
     // width: $fieldelement-size;
     // height: $fieldelement-size/2;
-    background-color: $fieldelement-color;
     box-shadow: 9px 5px 3px #000;
     transform: skewX(135deg);
     display: inline-block;
@@ -40,7 +31,8 @@ $skewPlayerEnemy: skewX(46deg) translate(-8%, -81%);
     background-position: center center;
 
     .player,
-    .enemy {
+    .enemy,
+    .object {
         display: inline-block;
         position: absolute;
         z-index: 10;
